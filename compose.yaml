@@ -1,7 +1,7 @@
-version: '3'
 services:
   api-desafio-cep:
     build:
+      target: dev
       context: .
       dockerfile: api-desafio-cep/Dockerfile
     volumes:
@@ -12,6 +12,7 @@ services:
 
   vue-desafio-cep:
     build:
+      target: dev
       context: .
       dockerfile: vue-app/Dockerfile
     ports:
@@ -20,7 +21,6 @@ services:
       - ${PWD}/vue-app:/app
     #for dev only
     working_dir: /app
-    tty: true
 
   nginx:
     image: nginx:latest
