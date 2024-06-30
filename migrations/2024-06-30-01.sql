@@ -1,0 +1,8 @@
+CREATE TABLE distance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cep1 VARCHAR(20) NOT NULL,
+    cep2 VARCHAR(20) NOT NULL,
+    distance FLOAT NOT NULL,
+    date_created DATETIME NOT NULL DEFAULT NOW(),
+    date_modification DATETIME NOT NULL DEFAULT NOW()
+);

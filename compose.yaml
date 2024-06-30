@@ -44,8 +44,19 @@ services:
       MYSQL_PASSWORD: mypassword
     volumes:
       - ${PWD}/db_data:/var/lib/mysql
+      - ${PWD}/migrations/init.sql:/docker-entrypoint-initdb.d/1.sql
     networks:
       - app-network
+
+  migrate:
+    image: mysql:8.0
+    volumes:
+      - ./migrations:/migrations
+    networks:
+      - app-network
+    depends_on:
+      - db
+    entrypoint: /bin/sh -c "/migrations/migrate.sh"
 
 networks:
   app-network:
