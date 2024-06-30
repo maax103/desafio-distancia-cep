@@ -22,7 +22,7 @@
         </tbody>
       </template>
       <template v-else>
-        <p>Não há nenhum item nos registros, por favor cadastre o seu primeiro registro.</p>
+        <p class="mx-3">Não há nenhum item nos registros, por favor cadastre o seu primeiro registro.</p>
       </template>
     </table>
   </div>
