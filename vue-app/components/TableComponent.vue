@@ -12,6 +12,9 @@
             <th scope="col">Origem</th>
             <th scope="col">Destino</th>
             <th scope="col">Distância (km)</th>
+            <th scope="col">Data/hora de cadastro</th>
+            <th scope="col">Data/hora de alteração</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>

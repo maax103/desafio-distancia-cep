@@ -41,13 +41,22 @@
       },
       async submitForm() {
 
-        const API_URL = useRuntimeConfig().public.API_URL;
-        const response = await fetch(API_URL, {
+        this.submitting = true;
 
-        });
-        const response_data = await response.text();
-        console.log(response_data);
-        this.$emit('submitted', this.formData);
+        const API_URL = useRuntimeConfig().public.API_URL;
+        try {
+
+          const response = await fetch(API_URL, {
+            method: "POST",
+            body: new URLSearchParams(this.formData)
+          });
+          const response_data = await response.json();
+          console.log(response_data);
+          this.$emit('submitted', this.formData);
+        } catch (err) {
+          alert('Ooops, algo de errado ocorreu.')  
+        }
+        this.submitting = false;
       }
     },
   };
