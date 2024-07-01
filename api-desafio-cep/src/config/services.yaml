@@ -1,23 +1,32 @@
 services:
-    App\Repository\DistanceRepository:
-        class: App\Repository\DistanceRepository
-        public: true
+  pdo:
+    class: PDO
+    arguments:
+      $dsn: 'mysql:host=db;dbname=mydatabase'
+      $username: 'myuser'
+      $password: 'mypassword'
 
-    App\Repository\DistanceRepositoryInterface:
-        alias: App\Repository\DistanceRepository
-        public: true
+  App\Repository\DistanceRepository:
+    class: App\Repository\DistanceRepository
+    arguments:
+      $pdo: '@pdo'
+    public: true
 
-    App\Service\DistanceServiceInterface:
-        alias: App\Service\DistanceService
-        public: true
+  App\Repository\DistanceRepositoryInterface:
+    alias: App\Repository\DistanceRepository
+    public: true
 
-    App\Service\DistanceService:
-        class: App\Service\DistanceService
-        arguments:
-            $distanceRepository: '@App\Repository\DistanceRepositoryInterface'
-        public: true
+  App\Service\DistanceServiceInterface:
+    alias: App\Service\DistanceService
+    public: true
 
-    App\Controller\DistanceController:
-        arguments:
-            $distanceService: '@App\Service\DistanceServiceInterface'
-        public: true
+  App\Service\DistanceService:
+    class: App\Service\DistanceService
+    arguments:
+      $distanceRepository: '@App\Repository\DistanceRepositoryInterface'
+    public: true
+
+  App\Controller\DistanceController:
+    arguments:
+      $distanceService: '@App\Service\DistanceServiceInterface'
+    public: true

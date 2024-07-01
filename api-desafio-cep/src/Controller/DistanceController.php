@@ -18,8 +18,10 @@ class DistanceController extends AbstractController
 
     public function create(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-        $distance = $this->distanceService->createDistance('cep1', 'cep2');
+        
+        $cep1 = $request->get('cep1');
+        $cep2 = $request->get('cep2');
+        $distance = $this->distanceService->createDistance($cep1, $cep2);
 
         return new JsonResponse([
             'id' => $distance->getId(),

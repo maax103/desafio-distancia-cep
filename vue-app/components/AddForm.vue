@@ -46,7 +46,7 @@
         const API_URL = useRuntimeConfig().public.API_URL;
         try {
 
-          const response = await fetch(API_URL, {
+          const response = await fetch(API_URL + '/api/distance', {
             method: "POST",
             body: new URLSearchParams(this.formData)
           });
