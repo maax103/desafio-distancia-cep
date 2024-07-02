@@ -70,4 +70,16 @@ class Distance
     {
         $this->dateModification = $dateModification;
     }
+
+    public function toArray($date_format = 'd-m-Y H:i:s')
+    {
+        return [
+            'id' => $this->id,
+            'cep1' => $this->cep1,
+            'cep2' => $this->cep2,
+            'distance' => $this->distance,
+            'date_created' => $this->dateCreated->format($date_format),
+            'date_modification' => $this->dateModification->format($date_format),
+        ];
+    }
 }

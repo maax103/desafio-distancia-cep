@@ -12,8 +12,16 @@ services:
       $pdo: '@pdo'
     public: true
 
-  App\Repository\DistanceRepositoryInterface:
+  App\Interfaces\DistanceRepositoryInterface:
     alias: App\Repository\DistanceRepository
+    public: true
+
+  App\Service\CoordinateService:
+    class: App\Service\CoordinateService
+    public: true
+
+  App\Interfaces\CoordinateServiceInterface:
+    alias: App\Service\CoordinateService
     public: true
 
   App\Service\DistanceServiceInterface:
@@ -23,7 +31,8 @@ services:
   App\Service\DistanceService:
     class: App\Service\DistanceService
     arguments:
-      $distanceRepository: '@App\Repository\DistanceRepositoryInterface'
+      $distanceRepository: '@App\Interfaces\DistanceRepositoryInterface'
+      $coordinateService: '@App\Interfaces\CoordinateServiceInterface'
     public: true
 
   App\Controller\DistanceController:

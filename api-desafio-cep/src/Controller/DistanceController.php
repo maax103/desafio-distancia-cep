@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Distance;
 use App\Interfaces\DistanceServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,5 +32,11 @@ class DistanceController extends AbstractController
             'date_created' => $distance->getDateCreated()->format('Y-m-d H:i:s'),
             'date_modification' => $distance->getDateModification()->format('Y-m-d H:i:s'),
         ]);
+    }
+
+    public function list(Request $request): JsonResponse
+    {
+        $distances = $this->distanceService->listDistances();
+        return new JsonResponse(array_map(fn(Distance $distance) => $distance->toArray(), $distances));
     }
 }

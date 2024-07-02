@@ -41,4 +41,26 @@ class DistanceRepository extends BaseRepository implements DistanceRepositoryInt
         }
         return null;
     }
+
+    public function listAll() : array
+    {
+        $stmt = $this->pdo->query("SELECT * FROM ".self::TABLE);
+        $distances = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+        $response = [];
+
+        foreach($distances as $item) {
+            $distance = new Distance();
+            $distance->setId($item['id']);
+            $distance->setCep1($item['cep1']);
+            $distance->setCep2($item['cep2']);
+            $distance->setDistance($item['distance']);
+            $distance->setDateCreated(new \DateTime($item['date_created']));
+            $distance->setDateModification(new \DateTime($item['date_modification']));
+
+            $response[] = $distance;
+        }
+
+        return $response;
+    }
 }

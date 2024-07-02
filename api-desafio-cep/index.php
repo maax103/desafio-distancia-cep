@@ -20,15 +20,12 @@ use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 $dotnev = Dotenv::createImmutable(__DIR__);
 $dotnev->load();
 
-// Criar um ContainerBuilder
 $containerBuilder = new ContainerBuilder();
 
-// Configurar um carregador YAML para carregar o arquivo services.yaml
 $loader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__.'/src/config'));
-$loader->load('services.yaml'); // Caminho personalizado para o arquivo de serviços
+$loader->load('services.yaml');
 
-// $containerBuilder->register(Distance::class, Distance::class);
-$containerBuilder->compile(true);
+$containerBuilder->compile();
 
 $routes = include ('src/config/routes.php');
 
