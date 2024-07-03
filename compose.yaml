@@ -19,7 +19,6 @@ services:
       - 9001:3000
     volumes:
       - ${PWD}/vue-app:/app
-    #for dev only
     working_dir: /app
 
   nginx:

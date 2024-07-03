@@ -1,7 +1,13 @@
-FROM node:22-alpine3.19 as base
+FROM node:22-alpine3.19 AS base
 
-RUN mkdir app
+COPY package.json package-lock.json ./
 
-FROM base as dev
+RUN npm ci
 
-ENTRYPOINT [ "npm", "run", "dev" ];
+COPY . .
+
+FROM base AS dev
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
