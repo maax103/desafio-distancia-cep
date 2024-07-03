@@ -14,8 +14,7 @@ services:
   vue-desafio-cep:
     build:
       target: dev
-      context: .
-      dockerfile: vue-app/Dockerfile
+      context: ./vue-app
     ports:
       - 9001:3000
     volumes:
