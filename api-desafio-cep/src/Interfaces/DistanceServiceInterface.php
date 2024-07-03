@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Entity\Distance;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface DistanceServiceInterface
 {
@@ -13,4 +14,5 @@ interface DistanceServiceInterface
      * @return Distance[]
      */
     public function listDistances() : ?array;
+    public function createDistancesFromCsv(?UploadedFile $file, string $separator) : int;
 }

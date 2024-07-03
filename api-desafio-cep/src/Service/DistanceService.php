@@ -7,6 +7,7 @@ use App\Entity\Distance;
 use App\Interfaces\CoordinateServiceInterface;
 use App\Interfaces\DistanceServiceInterface;
 use App\Interfaces\DistanceRepositoryInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistanceService implements DistanceServiceInterface
 {
@@ -19,8 +20,10 @@ class DistanceService implements DistanceServiceInterface
         $this->coordinateService = $coordinateService;
     }
 
-    public function createDistance(string $cep1, string $cep2): Distance
+    public function createDistance(string $cep1, string $cep2, bool $save_on_database = true): Distance
     {
+        $cep1 = trim($cep1);
+        $cep2 = trim($cep2);
         $this->validateCreateDistance($cep1, $cep2);
 
         $distance = new Distance();
@@ -30,7 +33,7 @@ class DistanceService implements DistanceServiceInterface
         $distance->setDateCreated(new \DateTime());
         $distance->setDateModification(new \DateTime());
 
-        $this->distanceRepository->save($distance);
+        if($save_on_database) $this->distanceRepository->save($distance);
 
         return $distance;
     }
@@ -75,5 +78,32 @@ class DistanceService implements DistanceServiceInterface
     public function listDistances() : ?array
     {
         return $this->distanceRepository->listAll();
+    }
+
+    public function createDistancesFromCsv(?UploadedFile $file, string $separator) : int
+    {
+        $items_to_save = [];
+        $amount = 0;
+        if (($handle = fopen($file->getRealPath(), 'r')) !== false) {
+            try {
+                while (($rows = fgetcsv($handle, 100, $separator)) !== false && $amount < $_ENV['API_CEP_CSV_LINES_LIMIT']) {
+                    $amount += 1;
+                    $items_to_save[] = $rows;
+                    if (count($items_to_save) === $_ENV['API_CEP_CSV_MAX_LINES_PER_SAVE']) {
+                        $distances = array_map(fn($item) => $this->createDistance($item[0], $item[1], false), $items_to_save);
+                        $this->distanceRepository->saveAll($distances);
+                        $items_to_save = [];
+                    }
+                }
+                if ($items_to_save != []) {
+                    $distances = array_map(fn($item) => $this->createDistance($item[0], $item[1], false), $items_to_save);
+                    $this->distanceRepository->saveAll($distances);  
+                }
+            } finally {
+                fclose($handle);
+            }
+        }
+
+        return $amount;
     }
 }

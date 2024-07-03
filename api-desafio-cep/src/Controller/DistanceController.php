@@ -7,6 +7,7 @@ use App\Interfaces\DistanceServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DistanceController extends AbstractController
 {
@@ -38,5 +39,22 @@ class DistanceController extends AbstractController
     {
         $distances = $this->distanceService->listDistances();
         return new JsonResponse(array_map(fn(Distance $distance) => $distance->toArray(), $distances));
+    }
+
+    public function importCsv(Request $request): Response
+    {
+        $file       = $request->files->get('file');
+        $separator  = $request->get('separator', ';');
+
+        if (!$file) {
+            return new Response('No file uploaded', Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($file->getClientOriginalExtension() !== 'csv') {
+            return new Response('Invalid file type', Response::HTTP_BAD_REQUEST);
+        }
+
+        $amout = $this->distanceService->createDistancesFromCsv($file, $separator);
+        return new Response($amout);
     }
 }

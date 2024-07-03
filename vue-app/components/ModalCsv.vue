@@ -21,7 +21,6 @@
 </template>
   
 <script setup>
-import { ref, defineProps } from 'vue'
 
 const props = defineProps({
   modalId: {
@@ -33,12 +32,16 @@ const props = defineProps({
 const file = ref(null)
 const separator = ref(null)
 
+const handleFileUpload = (event) => {
+  file.value = event.target.files[0]
+}
+
 const importCSV = async () => {
   if (file.value) {
 
     const formData = new FormData()
     formData.append('file', file.value)
-    formData.append('separator', separator.value)
+    formData.append('separator', separator.value ?? ';')
     
     try {
       const response = await fetch('http://localhost:9000/api/distance/import-csv', {
@@ -50,8 +53,8 @@ const importCSV = async () => {
         alert('Falha ao importar CSV')
       }
 
-      const result = await response.json()
-      console.log('Importação bem-sucedida:', result)
+      const result_count = await response.text()
+      alert(`Importação bem-sucedida: foram importados ${result_count} registros`)
     } catch (error) {
       alert('Erro ao importar CSV:', error)
     }

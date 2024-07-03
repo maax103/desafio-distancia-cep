@@ -16,4 +16,9 @@ $routes->add('list',
     ['_controller' => [DistanceController::class, 'list'],
 ]));
 
+$routes->add('import-csv', 
+    new Route('/api/distance/import-csv',
+    ['_controller' => [DistanceController::class, 'importCsv'],
+]));
+
 return $routes;

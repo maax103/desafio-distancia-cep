@@ -13,4 +13,9 @@ interface DistanceRepositoryInterface
      * @return Distance[]
      */
     public function listAll(): array;
+
+    /**
+     * @param Distance[] $distances
+     */
+    public function saveAll(array $distances) : bool;
 }
