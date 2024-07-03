@@ -15,8 +15,6 @@
 <script setup>
 import ModalCsv from '~/components/ModalCsv.vue'
 
-import { defineEmits } from 'vue'
-
 const emit = defineEmits(['update-form'])
 
 const emitUpdateShowForm = (status) => {
