@@ -6,50 +6,43 @@
         <AddButton :showForm="showForm" @update-form="handleShowForm" />
       </div>
     </div>
-    <AddForm v-if="showForm" @submitted="pushItem" @close-form="handleShowForm(false)" />
+    <AddForm v-if="showForm" @submitted="window.reload()" @close-form="handleShowForm(false)" />
     <TableComponent :items="tableItems" />
-  </div class="container">
+    <p v-if="error">{{ errorMessage }}</p>
+  </div>
 </template>
-  
-<script>
-  import AddForm from '~/components/AddForm.vue';
-  import AddButton from '~/components/AddButton.vue';
-  import TableComponent from '~/components/TableComponent.vue';
-  import RowComponent from '~/components/RowComponent.vue';
-  
-  export default {
-    components: {
-      AddForm,
-      AddButton,
-      TableComponent,
-      RowComponent,
-    },
-    data() {
-      return {
-        showForm: false,
-        tableItems: [],
-      };
-    },
-    methods: {
-      pushItem(info) {
-        this.tableItems = [
-          ...this.tableItems, 
-          {
-            id: this.tableItems.length,
-            cep1: info.cep1,
-            cep2: info.cep2,
-          }
-        ]
-        this.showForm = false;
-      },
-      handleShowForm(status) {
-        this.showForm = status;
-      }
-    }
-  };
-</script>
 
-<style scoped>
-/* Adicione estilos específicos para o componente aqui, se necessário */
-</style>
-  
+<script setup>
+import { ref, onMounted } from 'vue'
+import AddForm from '~/components/AddForm.vue'
+import AddButton from '~/components/AddButton.vue'
+import TableComponent from '~/components/TableComponent.vue'
+
+const showForm = ref(false)
+const tableItems = ref([])
+const error = ref(null)
+const errorMessage = ref('')
+
+const fetchData = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/api/distance/list')
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json()
+    tableItems.value = data
+  } catch (err) {
+    error.value = true
+    errorMessage.value = 'Failed to fetch distances. Please try again later.'
+  }
+}
+
+onMounted(() => {
+  fetchData()
+})
+
+const handleShowForm = (status) => {
+  showForm.value = status
+}
+
+</script>

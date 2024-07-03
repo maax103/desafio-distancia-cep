@@ -5,7 +5,7 @@
       <hr />
     </div>
     <table class="table table-striped mb-0">
-      <template v-if="items.length">
+      <template v-if="items && items.length">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -35,6 +35,7 @@
     props: {
       items: {
         type: Object,
+        default: () => [],
         required: true
       }
     }

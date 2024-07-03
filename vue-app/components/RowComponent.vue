@@ -3,9 +3,9 @@
     <td>{{ item.id }}</td>
     <td>{{ item.cep1 }}</td>
     <td>{{ item.cep2 }}</td>
-    <td>{{ 0 }}</td>
-    <td>{{ '29/06/2024 21:20' }}</td>
-    <td>{{ '29/06/2024 21:20' }}</td>
+    <td>{{ item.distance }}</td>
+    <td>{{ item.date_created }}</td>
+    <td>{{ item.date_modification }}</td>
     <td>+</td>
   </tr>
 </template>

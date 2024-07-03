@@ -51,7 +51,6 @@
             body: new URLSearchParams(this.formData)
           });
           const response_data = await response.json();
-          console.log(response_data);
           this.$emit('submitted', this.formData);
         } catch (err) {
           alert('Ooops, algo de errado ocorreu.')  
