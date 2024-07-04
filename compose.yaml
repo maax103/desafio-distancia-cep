@@ -4,7 +4,9 @@ services:
       target: dev
       context: ./api-desafio-cep
     volumes:
-      - ${PWD}/api-desafio-cep:/var/www/html
+      - ${PWD}/api-desafio-cep/src:/var/www/html/src
+      - ${PWD}/api-desafio-cep/vendor:/var/www/html/vendor
+      - ${PWD}/api-desafio-cep/index.php:/var/www/html/index.php
     working_dir: /var/www/html
     networks:
       - app-network
