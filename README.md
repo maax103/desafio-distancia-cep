@@ -54,5 +54,5 @@ Este projeto utiliza múltiplos containers para separar as responsabilidades de 
 
 ## Problemas conhecidos
 
-- Durante a execução do docker compose, mesmo que o serviço de migração esteja aguardando o banco de dados, pode ocorrer do script executar antes do servidor permitir conexões, de forma que as migrações não serão executadas.
+- Pode ocorrer do script de migração ser executado antes do servidor permitir conexões, de forma que as migrações não serão executadas.
 **Solução**: Executar o comando `docker compose start migrate` na raiz do projeto.

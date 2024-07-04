@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleep(4)
+sleep 4
 
 for file in /migrations/*.sql; do
     filename=$(basename "$file")
