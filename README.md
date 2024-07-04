@@ -10,7 +10,7 @@ O objetivo deste projeto não é construir uma aplicação útil, mas utilizar d
 
 Este projeto utiliza Docker Compose para orquestrar uma aplicação que consiste em uma API em PHP, um frontend em Vue.js, um servidor Nginx para servir a aplicação e um banco de dados MySQL com um sistema de migrações simples, construído em um script shell. 
 
-Cada componente está containerizado e configurado para comunicação entre si através de uma rede Docker.
+Cada componente está containerizado e configurado para comunicação entre si através de uma rede Docker. Os limites da API são configurados através de variáveis de ambiente.
 
 ## Passos para iniciar a aplicação
 
@@ -51,8 +51,10 @@ Este projeto utiliza múltiplos containers para separar as responsabilidades de 
 3. **Servidor Nginx** para servir a API.
 4. **Banco de Dados MySQL** para armazenamento persistente dos dados.
 5. **Serviço de Migração** para automatizar a aplicação de migrações no banco de dados.
-
+---
 ## Problemas conhecidos
 
 - Pode ocorrer do script de migração ser executado antes do servidor permitir conexões, de forma que as migrações não serão executadas.
 **Solução**: Executar o comando `docker compose start migrate` na raiz do projeto.
+<br>
+- Os tempos exibidos ao cliente estão em UTC-0 ao invés de UTC-3.
