@@ -18,6 +18,7 @@ Cada componente está containerizado e configurado para comunicação entre si a
 - Duplicar os arquivos `.env.example` em `api-desafio-cep`e `vue-app`
 - Alterar o nome dessas envs para `.env` 
 - Executar na raiz do projeto o comando `docker compose up -d`
+- Executar na raiz do projeto o comando `docker compose start migrate` (se necessário)
 - Acessar a aplicação em `http://localhost:9001`
 
 ## Descrição dos serviços
