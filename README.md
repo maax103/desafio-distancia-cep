@@ -4,7 +4,7 @@
 
 O desafio proposto é criar uma aplicação capaz de calcular a distância entre dois CEPs e gravar os registros em um banco de dados, além disso deveria possuir uma interface gráfica e a possibilidade de realizar a operação de cadastros em lote através de um arquivo CSV.
 
-O objetivo deste projeto não é construir uma aplicação útil, mas utilizar diversas ferramentas para demonstrar domínio das tecnologias utilizadas.
+O objetivo deste projeto não é construir uma aplicação útil, mas utilizar diversas ferramentas para demonstrar domínio das tecnologias utilizadas. Neste projeto também foi pensado no ambiente de desenvolvimento, portanto a aplicação deve ser de fácil instalação e vir com um depurador disponível.
 
 ## Visão Geral
 
@@ -51,3 +51,8 @@ Este projeto utiliza múltiplos containers para separar as responsabilidades de 
 3. **Servidor Nginx** para servir a API.
 4. **Banco de Dados MySQL** para armazenamento persistente dos dados.
 5. **Serviço de Migração** para automatizar a aplicação de migrações no banco de dados.
+
+## Problemas conhecidos
+
+- Durante a execução do docker compose, mesmo que o serviço de migração esteja aguardando o banco de dados, pode ocorrer do script executar antes do servidor permitir conexões, de forma que as migrações não serão executadas.
+**Solução**: Executar o comando `docker compose start migrate` na raiz do projeto.
