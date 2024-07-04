@@ -56,5 +56,4 @@ Este projeto utiliza múltiplos containers para separar as responsabilidades de 
 
 - Pode ocorrer do script de migração ser executado antes do servidor permitir conexões, de forma que as migrações não serão executadas.
 **Solução**: Executar o comando `docker compose start migrate` na raiz do projeto.
-<br>
 - Os tempos exibidos ao cliente estão em UTC-0 ao invés de UTC-3.
