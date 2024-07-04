@@ -58,6 +58,7 @@ Este projeto utiliza múltiplos containers para separar as responsabilidades de 
 A aplicação possui testes unitários e utiliza o phpunit para executá-los, a implemetação foi feita apenas para demonstrar o uso de testes unitários na aplicação. 
 
 Para executar basta digitar o seguinte comando na rais no projeto:
+
 `api-desafio-cep/vendor/bin/phpunit -c api-desafio-cep/src/units.xml` 
 
 ---
