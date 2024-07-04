@@ -32,6 +32,12 @@ RUN echo "xdebug.mode=debug" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" 
 RUN touch /var/log/xdebug.log && chown www-data:www-data /var/log/xdebug.log
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
+RUN mkdir -p /var/www/html/vendor \
+    && chown root:www-data /var/www/html/vendor \
+    && chmod -R 775 /var/www/html/vendor \
+    && mkdir -p /var/www/html/src \
+    && chmod -R 777 /var/www/html/src
+
 COPY --link --chown=:www-data . /var/www/html
 
 WORKDIR /var/www/html

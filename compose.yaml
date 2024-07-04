@@ -7,6 +7,8 @@ services:
       - ${PWD}/api-desafio-cep/src:/var/www/html/src
       - ${PWD}/api-desafio-cep/vendor:/var/www/html/vendor
       - ${PWD}/api-desafio-cep/index.php:/var/www/html/index.php
+      - ${PWD}/api-desafio-cep/composer.json:/var/www/html/composer.json
+      - ${PWD}/api-desafio-cep/composer.lock:/var/www/html/composer.lock
     working_dir: /var/www/html
     networks:
       - app-network
